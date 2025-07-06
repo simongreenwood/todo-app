@@ -44,7 +44,8 @@ export async function POST(request: Request) {
         password: hashedPassword,
       },
     });
-    return NextResponse.json(user, { status: 201 });
+    const { password, ...userWithoutPassword } = user;
+    return NextResponse.json(userWithoutPassword, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to create user" },
@@ -62,7 +63,8 @@ export async function DELETE(request: Request) {
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
-    return NextResponse.json(user, { status: 200 });
+    const { password, ...userWithoutPassword } = user;
+    return NextResponse.json(userWithoutPassword, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to delete user" },
@@ -85,7 +87,7 @@ export async function PUT(request: Request) {
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
-    return NextResponse.json(user, { status: 200 });
+    return NextResponse.json({ ...user, password: undefined }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to update user" },
