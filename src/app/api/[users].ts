@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { LayoutRouter } from "next/dist/server/app-render/entry-base";
 import bcrypt from "bcryptjs";
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
